@@ -21,7 +21,9 @@ defineEmits<{
 	</button>
 </template>
 
-<style module>
+<style lang="scss" module>
+@use '@n8n/design-system/css/mixins/theme';
+
 .banner {
 	display: flex;
 	align-items: center;
@@ -38,7 +40,7 @@ defineEmits<{
 }
 
 /* Dark mode: darker purple surface with light text */
-:global(body[data-theme='dark']) .banner {
+:global(#{theme.dark-like-theme(body)}) .banner {
 	border-bottom-color: var(--color--purple-700);
 	background-color: var(--color--purple-800);
 	color: var(--color--neutral-white);

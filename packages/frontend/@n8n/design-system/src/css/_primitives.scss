@@ -1,3 +1,5 @@
+@use './mixins/theme';
+
 @mixin primitives {
 	/* pink */
 	--color--pink-50: oklch(97.53% 0.0128 5.65);
@@ -338,7 +340,7 @@
 	@include primitives;
 }
 
-body[data-theme='dark'] {
+#{theme.dark-like-theme(body)} {
 	@include dark-theme-overrides;
 }
 

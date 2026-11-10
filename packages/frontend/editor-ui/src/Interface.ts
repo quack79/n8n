@@ -966,8 +966,13 @@ export type ToggleNodeCreatorOptions = {
 	connectionType?: NodeConnectionType;
 };
 
+/** The colour scheme a theme resolves to. Themed icons and code editors read this. */
 export type AppliedThemeOption = 'light' | 'dark';
-export type ThemeOption = AppliedThemeOption | 'system';
+/** Dark-based colour themes built from the Tailwind palette. */
+export type PaletteThemeOption = 'midnight' | 'ember' | 'volt';
+/** A theme that sets `data-theme` on the body, so every option except `system`. */
+export type NamedThemeOption = AppliedThemeOption | PaletteThemeOption;
+export type ThemeOption = NamedThemeOption | 'system';
 
 export type EnterpriseEditionFeatureKey =
 	| 'AdvancedExecutionFilters'

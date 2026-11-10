@@ -1,5 +1,7 @@
 @use 'sass:math';
 @use './tokens.legacy.scss' as tokens-legacy;
+@use './tokens.themes.scss' as tokens-themes;
+@use './mixins/theme';
 
 @mixin theme {
 	@include tokens-legacy.theme-legacy;
@@ -1250,9 +1252,22 @@
 	color-scheme: light;
 }
 
-[data-theme='dark'] {
+// Every dark-like theme starts from Dark. Its own block below then replaces the colours.
+#{theme.dark-like-theme()} {
 	@include theme-dark;
 	color-scheme: dark;
+}
+
+[data-theme='midnight'] {
+	@include tokens-themes.theme-midnight;
+}
+
+[data-theme='ember'] {
+	@include tokens-themes.theme-ember;
+}
+
+[data-theme='volt'] {
+	@include tokens-themes.theme-volt;
 }
 
 body:not([data-theme]) {

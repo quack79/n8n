@@ -93,7 +93,14 @@ async function selectTheme(container: Element, label: string) {
  * label is shown, the others are hidden from assistive technology.
  */
 function expectShownTheme(combobox: HTMLElement, label: string) {
-	for (const option of ['System default', 'Light theme', 'Dark theme']) {
+	for (const option of [
+		'System default',
+		'Light theme',
+		'Dark theme',
+		'Midnight theme',
+		'Ember theme',
+		'Volt theme',
+	]) {
 		const element = within(combobox).getByText(option);
 		if (option === label) {
 			expect(element).not.toHaveAttribute('aria-hidden');
@@ -482,6 +489,20 @@ describe('SettingsPersonalView', () => {
 
 			expect(uiStore.theme).toBe('dark');
 			expectShownTheme(getByRole('combobox', { name: 'Theme' }), 'Dark theme');
+		});
+
+		it.each([
+			['Midnight theme', 'midnight'],
+			['Ember theme', 'ember'],
+			['Volt theme', 'volt'],
+		])('should apply the %s', async (label, theme) => {
+			const { getByRole, container } = renderComponent({ pinia });
+			await waitAllPromises();
+
+			await selectTheme(container, label);
+
+			expect(uiStore.theme).toBe(theme);
+			expectShownTheme(getByRole('combobox', { name: 'Theme' }), label);
 		});
 	});
 

@@ -1,6 +1,6 @@
 import { useDocumentTitle } from '@/app/composables/useDocumentTitle';
 import { PopOutWindowKey } from '@n8n/composables/injectionKeys';
-import { useProvideTooltipAppendTo } from '@n8n/design-system';
+import { isDarkLikeTheme, useProvideTooltipAppendTo } from '@n8n/design-system';
 import {
 	computed,
 	type ComputedRef,
@@ -109,8 +109,9 @@ export function usePopOutWindow({
 			} else {
 				popOutWindow.value.document.body.removeAttribute('data-theme');
 			}
-			popOutWindow.value.document.documentElement.style.colorScheme =
-				theme === 'dark' ? 'dark' : 'light';
+			popOutWindow.value.document.documentElement.style.colorScheme = isDarkLikeTheme(theme)
+				? 'dark'
+				: 'light';
 		}
 	});
 	themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-theme'] });
@@ -160,8 +161,9 @@ export function usePopOutWindow({
 			popOutWindow.value.document.body.setAttribute('data-theme', theme);
 		}
 		// Hint the browser to use matching chrome (title bar, scrollbars, etc.)
-		popOutWindow.value.document.documentElement.style.colorScheme =
-			theme === 'dark' ? 'dark' : 'light';
+		popOutWindow.value.document.documentElement.style.colorScheme = isDarkLikeTheme(theme)
+			? 'dark'
+			: 'light';
 
 		// Move the content to child window.
 		popOutWindow.value.document.body.append(content.value);

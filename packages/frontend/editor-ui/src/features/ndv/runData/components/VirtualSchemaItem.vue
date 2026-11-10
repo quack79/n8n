@@ -141,7 +141,9 @@ const emit = defineEmits<{
 	</div>
 </template>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+@use '@n8n/design-system/css/mixins/theme';
+
 .schema-item {
 	display: flex;
 	margin-left: calc(var(--spacing--lg) * v-bind(level));
@@ -203,7 +205,7 @@ const emit = defineEmits<{
 	}
 }
 
-[data-theme='dark'] .pill--preview {
+#{theme.dark-like-theme()} .pill--preview {
 	background-image: var(--schema-preview--border--dashed--dark);
 }
 

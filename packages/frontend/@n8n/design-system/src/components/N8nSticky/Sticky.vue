@@ -150,6 +150,8 @@ const onInputScroll = (event: WheelEvent) => {
 </template>
 
 <style lang="scss" module>
+@use '../../css/mixins/theme';
+
 .sticky {
 	position: absolute;
 	border-radius: var(--radius);
@@ -168,7 +170,7 @@ const onInputScroll = (event: WheelEvent) => {
 	}
 }
 
-:global(body[data-theme='dark']) .customColor {
+:global(#{theme.dark-like-theme(body)}) .customColor {
 	--sticky--border-color: var(--sticky--border-color--custom-dark);
 }
 

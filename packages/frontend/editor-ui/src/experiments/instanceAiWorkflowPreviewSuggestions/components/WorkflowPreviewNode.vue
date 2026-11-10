@@ -69,6 +69,8 @@ const iconLightInvert = computed(() => activeIcon.value.lightInvert === true);
 </template>
 
 <style lang="scss" module>
+@use '@n8n/design-system/css/mixins/theme';
+
 .node {
 	position: absolute;
 	display: flex;
@@ -150,7 +152,7 @@ const iconLightInvert = computed(() => activeIcon.value.lightInvert === true);
 	filter: invert(1);
 }
 
-:global([data-theme='dark']) .lightInvert {
+:global(#{theme.dark-like-theme()}) .lightInvert {
 	filter: none;
 }
 

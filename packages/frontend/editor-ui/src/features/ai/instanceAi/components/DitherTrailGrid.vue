@@ -585,7 +585,9 @@ onUnmounted(() => {
 	/>
 </template>
 
-<style lang="css" module>
+<style lang="scss" module>
+@use '@n8n/design-system/css/mixins/theme';
+
 .trailGrid {
 	position: absolute;
 	bottom: 0;
@@ -619,7 +621,7 @@ onUnmounted(() => {
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 
-	:global(body[data-theme='dark']) & {
+	:global(#{theme.dark-like-theme(body)}) & {
 		--word-grid-background-color: #ccc;
 	}
 

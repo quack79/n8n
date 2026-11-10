@@ -251,6 +251,8 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" module>
+@use '@n8n/design-system/css/mixins/theme';
+
 .chat {
 	--chat--spacing: var(--spacing--xs);
 	--chat--message--padding: var(--spacing--2xs);
@@ -436,7 +438,7 @@ onUnmounted(() => {
 	}
 
 	/* Dark Mode Overrides */
-	body[data-theme='dark'] & {
+	#{theme.dark-like-theme(body)} & {
 		:global(.chat-layout) {
 			/* Body and Footer - darker background like the old design */
 			--chat--body--background: var(--color--background--light-2);

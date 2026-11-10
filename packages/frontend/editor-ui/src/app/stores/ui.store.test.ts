@@ -1,8 +1,9 @@
 import { createPinia, setActivePinia } from 'pinia';
+import { nextTick } from 'vue';
 import { modalRegistry } from '@n8n/frontend-module-sdk';
 
 import type { INodeUi, ModalState, NewCredentialsModal } from '@/Interface';
-import { IMPORT_CURL_MODAL_KEY } from '@/app/constants';
+import { IMPORT_CURL_MODAL_KEY, LOCAL_STORAGE_THEME } from '@/app/constants';
 import { listenForModalChanges, useUIStore } from '@/app/stores/ui.store';
 import { CREDENTIAL_EDIT_MODAL_KEY } from '@/features/credentials/credentials.constants';
 
@@ -10,6 +11,58 @@ describe('UI Store', () => {
 	beforeEach(() => {
 		setActivePinia(createPinia());
 		modalRegistry.clear();
+	});
+
+	describe('theme', () => {
+		beforeEach(() => {
+			localStorage.clear();
+			document.body.removeAttribute('data-theme');
+		});
+
+		it.each(['midnight', 'ember', 'volt'] as const)(
+			'should apply, store and resolve %s as a dark theme',
+			async (theme) => {
+				const uiStore = useUIStore();
+
+				uiStore.setTheme(theme);
+				// useLocalStorage writes on the next tick.
+				await nextTick();
+
+				expect(uiStore.theme).toBe(theme);
+				expect(uiStore.appliedTheme).toBe('dark');
+				expect(document.body.getAttribute('data-theme')).toBe(theme);
+				expect(localStorage.getItem(LOCAL_STORAGE_THEME)).toBe(theme);
+			},
+		);
+
+		it('should keep light and dark as they are', () => {
+			const uiStore = useUIStore();
+
+			uiStore.setTheme('light');
+			expect(uiStore.appliedTheme).toBe('light');
+
+			uiStore.setTheme('dark');
+			expect(uiStore.appliedTheme).toBe('dark');
+		});
+
+		it('should restore a stored new theme', () => {
+			localStorage.setItem(LOCAL_STORAGE_THEME, 'ember');
+
+			const uiStore = useUIStore();
+
+			expect(uiStore.theme).toBe('ember');
+			expect(uiStore.appliedTheme).toBe('dark');
+		});
+
+		it('should remove data-theme when switching back to system', () => {
+			const uiStore = useUIStore();
+
+			uiStore.setTheme('volt');
+			uiStore.setTheme('system');
+
+			expect(uiStore.theme).toBe('system');
+			expect(document.body.hasAttribute('data-theme')).toBe(false);
+		});
 	});
 
 	describe('markStateDirty', () => {

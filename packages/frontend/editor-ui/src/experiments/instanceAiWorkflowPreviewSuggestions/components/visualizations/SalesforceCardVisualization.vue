@@ -88,6 +88,8 @@ onUnmounted(clearTimers);
 </template>
 
 <style lang="scss" module>
+@use '@n8n/design-system/css/mixins/theme';
+
 .card {
 	width: 280px;
 	padding: var(--spacing--sm) var(--spacing--md);
@@ -127,7 +129,7 @@ onUnmounted(clearTimers);
 	filter: invert(1);
 }
 
-:global([data-theme='dark']) .lightInvert {
+:global(#{theme.dark-like-theme()}) .lightInvert {
 	filter: none;
 }
 

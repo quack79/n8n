@@ -1,0 +1,18 @@
+@use 'sass:list';
+@use 'sass:string';
+
+// Theme
+// --------------------------
+
+// Themes that use a dark colour scheme. Keep in sync with DARK_LIKE_THEMES in utils/theme.ts.
+$dark-like-themes: dark, midnight, ember, volt;
+
+// Selector that matches every dark-like theme, e.g. `#{dark-like-theme('body')} .foo`.
+// One `:is()` keeps the specificity of a single `[data-theme]` attribute selector.
+@function dark-like-theme($element: '') {
+	$selectors: ();
+	@each $theme in $dark-like-themes {
+		$selectors: list.append($selectors, "[data-theme='#{$theme}']", $separator: comma);
+	}
+	@return string.unquote('#{$element}:is(#{$selectors})');
+}

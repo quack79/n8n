@@ -244,6 +244,13 @@ const themeItems = computed(
 		},
 		{ value: 'light', label: i18n.baseText('settings.personal.theme.light'), icon: 'sun' },
 		{ value: 'dark', label: i18n.baseText('settings.personal.theme.dark'), icon: 'moon' },
+		{
+			value: 'midnight',
+			label: i18n.baseText('settings.personal.theme.midnight'),
+			icon: 'palette',
+		},
+		{ value: 'ember', label: i18n.baseText('settings.personal.theme.ember'), icon: 'palette' },
+		{ value: 'volt', label: i18n.baseText('settings.personal.theme.volt'), icon: 'palette' },
 	],
 );
 
